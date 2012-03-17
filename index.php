@@ -61,9 +61,6 @@
     <div id="cerrarmenu">
       [X]
     </div>
-    
-    <div id="cerrarsubmenu">
-      [X]
-    </div>
+   
   </body>
 </html>
