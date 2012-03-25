@@ -1,4 +1,4 @@
-.menu, .submenu {
+.mobile-menu-mainmenu, .mobile-menu-submenu {
   float:left;
   padding:0px;
   color:white;
@@ -6,7 +6,7 @@
   left:-210px;
 }
 
-.menu li, .submenu li {
+.mobile-menu-mainmenu li, .mobile-menu-submenu li {
   display: block;
   width:200px;
   height:50px;
@@ -16,25 +16,25 @@
   box-shadow:inset 0 0 10px #000000;
 }
 
-.menu > li {
+.mobile-menu-mainmenu > li {
   background-color: darkred;
 }
 
-.submenu > li {
+.mobile-menu-submenu > li {
   background-color: darkmagenta;
 }
 
-.submenu {
+.mobile-menu-submenu {
   display:none;
 }
 
-.menu li:last-child:after, .submenu li:last-child:after {
+.mobile-menu-mainmenu li:last-child:after, .mobile-menu-submenu li:last-child:after {
   content: '.';
   clear:both;
   display: block;
 }
 
-#desplegarmenu {
+#mobile-menu-open {
   width:16px;
   height:16px;
   background:blue;
@@ -49,12 +49,12 @@
   z-index: 1000;
 }
 
-#desplegarmenu:hover, #cerrarmenu:hover {
+#mobile-menu-open:hover, #mobile-menu-close:hover {
   opacity:1;
   cursor:pointer;
 }
 
-#cerrarmenu {
+#mobile-menu-close {
   width:20px;
   height:20px;
   background:darkred;
@@ -71,17 +71,12 @@
   z-index: 1000;
 }
 
-#desplegarmenu:hover {
-  opacity:1;
-  cursor:pointer;
-}
-
-.menu > li.consub {
+.mobile-menu-mainmenu > li.mobile-menu-isparent {
   background-color:black;
   width:210px;
 }
 
-#menuactual {
+#mobile-menu-current {
   left:0px;
   position:fixed;
   top:-30px;

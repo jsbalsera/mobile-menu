@@ -1,47 +1,80 @@
 $(document).ready(function() {
-  $("#desplegarmenu").bind("click", function() {
-    $(".menu").animate({left:'0px'}).addClass("visible");
-    $("#cerrarmenu").show();
+  
+  /**
+   * Open menu button click handler
+   * Show main menu
+   * Hide itself
+   * Show close menu button
+   */
+  $("#mobile-menu-open").bind("click", function() {
+    $(".mobile-menu-mainmenu").animate({left:'0px'}).addClass("mobile-menu-visible");
+    $("#mobile-menu-close").show();
     $(this).hide();
   });
   
-  $("#cerrarmenu").bind("click", function() {    
-    $(".visible").animate({left:'-' + ($(".visible").css('width'))}).removeClass("visible");
-    $("#desplegarmenu").show();
+  /**
+   * Close menu button click handler
+   * Hides visible menu and itself
+   * Shows open menu button
+   * If there's upper bar hides it
+   */
+  $("#mobile-menu-close").bind("click", function() {    
+    $(".mobile-menu-visible")
+          .animate({left:'-' + ($(".mobile-menu-visible").css('width'))})
+          .removeClass("mobile-menu-visible");
+    $("#mobile-menu-open").show();
     $(this).hide();
-    if ($("#menuactual").css('top') == '0px') {
-      $("#menuactual").animate({top:'-' + $("#menuactual").css('height')});
+    
+    var currentbar = $("#mobile-menu-current");
+    if (currentbar.css('top') == '0px') {
+      currentbar.animate({top:'-' + currentbar.css('height')});
     }
   });
   
-  $(".consub").bind("click", function() {
-    $(".visible").animate({left:'-' + ($(".visible").css('width'))}).removeClass("visible");
-    var id = $(this).attr("data-menuid");
-    $("#" + id).show().animate({left:'0px'}).addClass("visible");
+  /**
+   * Menu option with submenu associated click handler
+   * Hides visible menu
+   * Shows child menu
+   * Shows current menu bar and styles it
+   */
+  $(".mobile-menu-isparent").bind("click", function() {
+    $(".mobile-menu-visible").
+      animate({left:'-' + ($(".mobile-menu-visible").css('width'))}).
+      removeClass("mobile-menu-visible");
+    var id = $(this).attr("data-mobile-menu-id");
+    $("#mobile-menu-" + id).show().animate({left:'0px'}).addClass("mobile-menu-visible");
     
     var fondo = $(this).css('background-color');
     var color = $(this).css('color');
-    var menuactual = $("#menuactual");
-    menuactual.text($(this).text())
+    var currentbar = $("#mobile-menu-current");
+    currentbar.text($(this).text())
               .animate({top:'0px'})
               .css({'background-color': fondo, 'color': color})
-              .attr("data-menuid", id);
+              .attr("data-mobile-menu-id", id);
   });
   
-  $("#menuactual").bind("click", function() {
-    var submenu = $("#" + $(this).attr("data-menuid")); 
-    submenu.animate({left:'-' + submenu.css('width')}).removeClass("visible");
+  /**
+   * Current menu bar click handler
+   * Shows visible menu's parent
+   * Hides visible menu
+   * If parent menu is the main menu hides itself
+   */
+  $("#mobile-menu-current").bind("click", function() {
+    var submenu = $("#mobile-menu-" + $(this).attr("data-mobile-menu-id")); 
+    submenu.animate({left:'-' + submenu.css('width')}).removeClass("mobile-menu-visible");
     
-    var padre = $("#" + submenu.attr('data-padre'));
-    padre.animate({left:'0px'}).addClass("visible");
-    if (padre.attr("data-padre") && padre.attr("data-padre").length > 0) {
-      $(this).text(padre.text())
-             .css({'background-color': padre.css('background-color'),
-                  'color': padre.css('color')})
-             .attr("data-menuid", padre.attr('id'));
+    var parent = $("#mobile-menu-" + submenu.attr('data-mobile-menu-parent'));
+    console.log(submenu);
+    console.log(parent);
+    parent.animate({left:'0px'}).addClass("mobile-menu-visible");
+    if (parent.attr("data-mobile-menu-parent") && parent.attr("data-mobile-menu-parent").length > 0) {
+      $(this).text(parent.text())
+             .css({'background-color': parent.css('background-color'),
+                  'color': parent.css('color')})
+             .attr("data-mobile-menu-id", parent.attr('id'));
     } else {
       $(this).animate({top:'-' + $(this).css("height")});
-      $("#cerrarmenu").show();
+      $("#mobile-menu-close").show();
     }
   });
 });
